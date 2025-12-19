@@ -23,15 +23,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/tab-logo.jpg",
+        url: "/tab-logo.jpeg",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/tab-logo.jpg",
+        url: "/tab-logo.jpeg",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/tab-logo.jpg",
+        url: "/tab-logo.jpeg",
         type: "image/svg+xml",
       },
     ],
