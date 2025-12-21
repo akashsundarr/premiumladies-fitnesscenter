@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -12,37 +12,56 @@ export default function ContactSection() {
     message: "",
   })
 
+  const [isSending, setIsSending] = useState(false)
+  const [popup, setPopup] = useState<{
+    type: "success" | "error"
+    message: string
+  } | null>(null)
+
+  // ✅ Auto-close popup after 3 seconds
+  useEffect(() => {
+    if (!popup) return
+    const timer = setTimeout(() => setPopup(null), 3000)
+    return () => clearTimeout(timer)
+  }, [popup])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-  
+    if (isSending) return
+
+    setIsSending(true)
+
     try {
       const url = process.env.NEXT_PUBLIC_GAS_CONTACT_URL
       if (!url) throw new Error("ENV missing")
-  
+
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(formData),
       })
-  
+
       const text = await response.text()
-      console.log("RAW RESPONSE FROM GAS:", text)
-  
       const result = JSON.parse(text)
-  
+
       if (result.success) {
-        alert("Message sent")
+        setPopup({
+          type: "success",
+          message:
+            "Your message has been sent successfully. We’ll contact you soon.",
+        })
         setFormData({ name: "", email: "", phone: "", message: "" })
       } else {
-        console.error("SCRIPT ERROR:", result.error)
         throw new Error(result.error || "Script failure")
       }
     } catch (err) {
-      console.error("SEND ERROR:", err)
-      alert("Unable to send message")
+      setPopup({
+        type: "error",
+        message: "Something went wrong. Please try again later.",
+      })
+    } finally {
+      setIsSending(false)
     }
   }
-  
-  
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -67,15 +86,14 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="font-bebas text-6xl md:text-7xl lg:text-8xl text-[#333333]">
+          <h2 className="font-bebas text-6xl md:text-7xl text-[#333333]">
             Get in <span className="text-[#FF69B4]">Touch</span>
           </h2>
-          <p className="mt-4 text-[#333333] text-lg font-space max-w-xl mx-auto leading-relaxed">
-            Have questions or ready to begin? Reach out and we’ll guide you every
-            step of the way.
+          <p className="mt-4 text-lg text-[#333333] max-w-xl mx-auto">
+            Have questions or ready to begin? Reach out and we’ll guide you.
           </p>
         </motion.div>
 
@@ -96,23 +114,22 @@ export default function ContactSection() {
               { id: "phone", label: "Phone Number", type: "tel" },
             ].map((field) => (
               <div key={field.id}>
-                <label className="block text-[#FF69B4] font-bebas text-xl mb-1">
+                <label className="block font-bebas text-xl text-[#FF69B4] mb-1">
                   {field.label}
                 </label>
                 <input
-                  id={field.id}
                   name={field.id}
                   type={field.type}
                   value={(formData as any)[field.id]}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-black/20 rounded-lg bg-transparent text-[#333333] font-space focus:ring-2 focus:ring-pink-300 outline-none"
+                  className="w-full px-4 py-3 border border-black/20 rounded-lg bg-transparent focus:ring-2 focus:ring-pink-300 outline-none"
                 />
               </div>
             ))}
 
             <div>
-              <label className="block text-[#FF69B4] font-bebas text-xl mb-1">
+              <label className="block font-bebas text-xl text-[#FF69B4] mb-1">
                 Message
               </label>
               <textarea
@@ -121,15 +138,31 @@ export default function ContactSection() {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-black/20 rounded-lg bg-transparent text-[#333333] font-space focus:ring-2 focus:ring-pink-300 outline-none resize-none"
+                className="w-full px-4 py-3 border border-black/20 rounded-lg bg-transparent focus:ring-2 focus:ring-pink-300 outline-none resize-none"
               />
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[#FF69B4] text-white font-bebas text-2xl px-10 py-4 rounded-lg hover:scale-[1.02] transition-transform"
+              disabled={isSending}
+              className={`inline-flex items-center justify-center gap-3 font-bebas text-2xl px-10 py-4 rounded-lg transition
+                ${
+                  isSending
+                    ? "bg-pink-300 cursor-not-allowed"
+                    : "bg-[#FF69B4] hover:scale-[1.02]"
+                }
+                text-white
+              `}
             >
-              Send Message
+              {isSending ? (
+                <>
+                  <span className="h-5 w-5 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                "Send Message"
+              )}
             </button>
           </motion.form>
 
@@ -138,7 +171,7 @@ export default function ContactSection() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.7 }}
             className="flex justify-center lg:justify-end"
           >
             <div className="bg-white border border-black/20 rounded-xl p-8 w-full max-w-md">
@@ -148,7 +181,7 @@ export default function ContactSection() {
               {trainingHours.map((item, i) => (
                 <div
                   key={i}
-                  className="flex justify-between py-3 border-b last:border-0 text-sm font-space text-[#333333]"
+                  className="flex justify-between py-3 border-b last:border-0 text-sm"
                 >
                   <span>{item.day}</span>
                   <span>{item.hours}</span>
@@ -158,6 +191,44 @@ export default function ContactSection() {
           </motion.div>
         </div>
       </div>
+
+      {/* ✅ Auto-closing Popup */}
+      <AnimatePresence>
+        {popup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ duration: 0.25 }}
+              className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 text-center shadow-xl"
+            >
+              <h3
+                className={`font-bebas text-3xl mb-3 ${
+                  popup.type === "success"
+                    ? "text-[#FF69B4]"
+                    : "text-red-500"
+                }`}
+              >
+                {popup.type === "success" ? "Message Sent" : "Error"}
+              </h3>
+
+              <p className="text-[#333333] mb-2">
+                {popup.message}
+              </p>
+
+              <p className="text-xs text-gray-400">
+                This will close automatically
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

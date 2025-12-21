@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Instagram } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,12 +10,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-5">
             <div className="leading-none">
-              <h2 className="font-bebas text-3xl md:text-4xl text-[#f2f2f2]">
-                Premium Ladies Fitness
-              </h2>
-              <h3 className="font-bebas text-4xl md:text-5xl text-[#FF69B4]">
-                Center
-              </h3>
+              <Image
+                src="/footer-logo.png"
+                alt="Premium Ladies Fitness Center"
+                width={420}
+                height={120}
+                className="w-[220px] md:w-[300px] h-auto"
+                priority
+              />
             </div>
 
             <p className="text-sm max-w-xs leading-relaxed text-[#cfcfcf]">

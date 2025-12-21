@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const navItems = [
   { name: "Home", href: "#" },
@@ -21,23 +22,26 @@ export default function Navbar() {
         {/* NAV BAR */}
         <div className="h-20 flex items-center justify-between">
           {/* LOGO */}
-          <div className="flex items-center gap-2">
-          <img
-            src="/images/logo-mark.svg"   // small icon / emblem
-            alt=""
-            width={28}
-            height={28} 
-            className="h-16 w-16 object-contain"
-          />
-          <img
-            src="/images/logo.svg"
-            alt="Premium Ladies Fitness Center"
-            width={180}
-            height={45}
-            className="h-auto w-fill"
-          />
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Logo mark */}
+            <Image
+              src="/images/logo-mark.png"
+              alt=""
+              width={45}
+              height={45}
+              className="w-[40px] h-[40px] md:w-[56px] md:h-[56px] shrink-0"
+              priority
+            />
+
+            {/* Main logo */}
+            {/* <img
+              src="/images/logo.svg"
+              alt="Premium Ladies Fitness Center"
+              width={180}
+              height={45}
+              className="block"
+            /> */}
           </div>
-          
 
           {/* DESKTOP MENU */}
           <nav className="hidden md:flex items-center gap-10">
@@ -54,7 +58,6 @@ export default function Navbar() {
 
           {/* DESKTOP CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="font-bebas text-lg text-[#333333]">Login</button>
             <button className="font-bebas text-lg px-6 py-2 border border-[#FF69B4] text-[#FF69B4] rounded hover:bg-[#FF69B4] hover:text-white transition">
               Join Now
             </button>
@@ -62,11 +65,11 @@ export default function Navbar() {
 
           {/* MOBILE TOGGLE */}
           <button
-            className="md:hidden text-2xl"
+            className="md:hidden text-2xl font-bold"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={open ? "Close menu" : "Open menu"}
           >
-            ☰
+            {open ? "✕" : "☰"}
           </button>
         </div>
       </div>
@@ -106,6 +109,11 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
+                onClick={() => {
+                  document
+                    .getElementById("membership")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="font-bebas text-xl border border-[#FF69B4] py-3 text-[#FF69B4] rounded"
               >
                 Join Now
