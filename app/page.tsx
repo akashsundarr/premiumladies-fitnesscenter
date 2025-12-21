@@ -10,15 +10,19 @@ import FAQSection from "@/components/faq-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import AppNavbar from "@/components/Navbar"
+import SpecialOfferSection from "@/components/SpecialOfferSection"
 
 export default function Page() {
   return (
     <>
       <AppNavbar />
+      
 
       <section id="home">
         <HeroSection />
       </section>
+      
+      {/* <SpecialOfferSection /> */}
 
       <section id="mission">
         <MissionSection />

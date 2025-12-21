@@ -58,9 +58,14 @@ export default function Navbar() {
 
           {/* DESKTOP CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="font-bebas text-lg px-6 py-2 border border-[#FF69B4] text-[#FF69B4] rounded hover:bg-[#FF69B4] hover:text-white transition">
+            <a
+              href="https://wa.me/971509511234?text=Hi%20Premium%20Ladies%20Fitness%20Center%0AI%20want%20to%20join%20the%20gym.%20Please%20share%20membership%20details."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bebas text-lg px-6 py-2 border border-[#FF69B4] text-[#FF69B4] rounded hover:bg-[#FF69B4] hover:text-white transition"
+            >
               Join Now
-            </button>
+            </a>
           </div>
 
           {/* MOBILE TOGGLE */}
@@ -105,19 +110,17 @@ export default function Navbar() {
                 </motion.a>
               ))}
 
-              <motion.button
+              <motion.a
+                href="https://wa.me/971509511234?text=Hi%20Premium%20Ladies%20Fitness%20Center%0AI%20want%20to%20join%20the%20gym.%20Please%20share%20membership%20details."
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                onClick={() => {
-                  document
-                    .getElementById("membership")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="font-bebas text-xl border border-[#FF69B4] py-3 text-[#FF69B4] rounded"
+                className="font-bebas text-xl border border-[#FF69B4] py-3 px-6 text-[#FF69B4] rounded text-center hover:bg-[#FF69B4] hover:text-white transition"
               >
                 Join Now
-              </motion.button>
+              </motion.a>
             </motion.nav>
           </motion.div>
         )}
