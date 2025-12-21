@@ -10,7 +10,6 @@ const navItems = [
   { name: "Trainers", href: "#trainers" },
   { name: "Contact", href: "#contact" },
   { name: "FAQ", href: "#faq" },
-  
 ];
 
 export default function Navbar() {
@@ -22,15 +21,23 @@ export default function Navbar() {
         {/* NAV BAR */}
         <div className="h-20 flex items-center justify-between">
           {/* LOGO */}
-          <div className="leading-tight">
-            <div className="font-bebas text-lg md:text-xl tracking-[0.16em] uppercase">
-              <span className="text-[#333333]">Premium</span>{" "}
-              <span className="text-[#FF69B4]">Ladies</span>
-            </div>
-            <div className="font-bebas text-xs tracking-[0.28em] uppercase text-[#333333]">
-              Fitness Center
-            </div>
+          <div className="flex items-center gap-2">
+          <img
+            src="/images/logo-mark.svg"   // small icon / emblem
+            alt=""
+            width={28}
+            height={28} 
+            className="h-16 w-16 object-contain"
+          />
+          <img
+            src="/images/logo.svg"
+            alt="Premium Ladies Fitness Center"
+            width={180}
+            height={45}
+            className="h-auto w-fill"
+          />
           </div>
+          
 
           {/* DESKTOP MENU */}
           <nav className="hidden md:flex items-center gap-10">
@@ -47,9 +54,7 @@ export default function Navbar() {
 
           {/* DESKTOP CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="font-bebas text-lg text-[#333333]">
-              Login
-            </button>
+            <button className="font-bebas text-lg text-[#333333]">Login</button>
             <button className="font-bebas text-lg px-6 py-2 border border-[#FF69B4] text-[#FF69B4] rounded hover:bg-[#FF69B4] hover:text-white transition">
               Join Now
             </button>
