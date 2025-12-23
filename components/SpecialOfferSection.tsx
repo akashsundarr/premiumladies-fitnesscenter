@@ -29,7 +29,7 @@ export default function HighUrgencyOffer() {
   const [timeLeft, setTimeLeft] = useState<ReturnType<typeof getTimeLeft>>(
     () => (isOfferActive() ? getTimeLeft(OFFER_END) : null)
   )
-  const [spotsLeft, setSpotsLeft] = useState(7)
+  const [spotsLeft, setSpotsLeft] = useState(50)
 
   /* Countdown */
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function HighUrgencyOffer() {
     return () => clearInterval(timer)
   }, [])
 
-  /* Soft UI scarcity (never drops below 3) */
+  /* Soft UI scarcity */
   useEffect(() => {
     const interval = setInterval(() => {
       setSpotsLeft((prev) => (prev > 3 ? prev - 1 : 3))
@@ -54,8 +54,32 @@ export default function HighUrgencyOffer() {
   if (!timeLeft || !isOfferActive()) return null
 
   return (
-    <section className="relative w-full bg-white border-y-4 border-[#FF69B4] py-16 px-4">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="relative w-full bg-white border-y-4 border-[#FF69B4] py-16 px-4 overflow-hidden">
+      {/* 🔥 PRICE BOOMER */}
+      <motion.div
+        initial={{ scale: 0, rotate: -12 }}
+        animate={{ scale: 1, rotate: -8 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
+        className="absolute top-4 right-4 z-20"
+      >
+        <motion.div
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ repeat: Infinity, duration: 1.8 }}
+          className="bg-[#FF69B4] text-white px-6 py-4 rounded-2xl shadow-xl text-center"
+        >
+          <div className="text-xs uppercase tracking-wider opacity-90">
+            Christmas Deal
+          </div>
+          <div className="text-3xl font-black font-bebas leading-tight">
+            AED 129
+          </div>
+          <div className="text-xs opacity-90">1 Month</div>
+        </motion.div>
+      </motion.div>
+
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+      <MobileOfferPoster />
+        
         <h2 className="font-bebas text-6xl md:text-8xl text-slate-900">
           CHRISTMAS SPECIAL
         </h2>
@@ -125,6 +149,20 @@ function Separator() {
   return (
     <div className="h-20 md:h-28 flex items-center justify-center">
       <span className="text-3xl text-slate-300">:</span>
+    </div>
+  )
+}
+
+function MobileOfferPoster() {
+  return (
+    <div className="w-full px-4 mb-10 md:hidden">
+      <div className="relative mx-auto max-w-sm overflow-hidden rounded-2xl shadow-xl">
+        <img
+          src="/offers/christmas-offer.PNG"
+          alt="Christmas Special Offer Poster"
+          className="w-full h-auto object-contain"
+        />
+      </div>
     </div>
   )
 }
