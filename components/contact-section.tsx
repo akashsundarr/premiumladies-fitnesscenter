@@ -67,16 +67,16 @@ export default function ContactSection() {
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
-  const workingHours = [
-    { day: "Saturday", hours: "06:00 AM – 11:59 PM" },
-    { day: "Sunday", hours: "06:00 AM – 11:59 PM" },
-    { day: "Monday", hours: "06:00 AM – 11:59 PM" },
-    { day: "Tuesday", hours: "06:00 AM – 11:59 PM" },
-    { day: "Wednesday", hours: "06:00 AM – 11:59 PM" },
-    { day: "Thursday", hours: "06:00 AM – 11:59 PM" },
-    { day: "Friday", hours: "03:00 PM – 11:59 PM" },
-  ]
-  
+const trainingHours = [
+  { day: "Saturday", hours: "06:00 AM – 11:59 PM" },
+  { day: "Sunday", hours: "06:00 AM – 11:59 PM" },
+  { day: "Monday", hours: "06:00 AM – 11:59 PM" },
+  { day: "Tuesday", hours: "06:00 AM – 11:59 PM" },
+  { day: "Wednesday", hours: "06:00 AM – 11:59 PM" },
+  { day: "Thursday", hours: "06:00 AM – 11:59 PM" },
+  { day: "Friday", hours: "03:00 PM – 11:59 PM" },
+]
+
 
   return (
     <section className="py-24 px-6 bg-[radial-gradient(circle_at_50%_50%,rgba(255,105,180,0.14)_0%,#ffffff_45%)]">

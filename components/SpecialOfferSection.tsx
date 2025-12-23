@@ -8,13 +8,11 @@ import { ArrowRight } from "lucide-react"
 const OFFER_START = new Date("2025-12-24T00:00:00")
 const OFFER_END = new Date("2025-12-25T23:59:59")
 
-function isOfferActive() {
-  const now = Date.now()
+function isOfferActive(now: number) {
   return now >= OFFER_START.getTime() && now <= OFFER_END.getTime()
 }
 
-function getTimeLeft(targetDate: Date) {
-  const now = Date.now()
+function getTimeLeft(targetDate: Date, now: number) {
   const distance = targetDate.getTime() - now
   if (distance <= 0) return null
 
@@ -26,21 +24,32 @@ function getTimeLeft(targetDate: Date) {
 }
 
 export default function HighUrgencyOffer() {
-  const [timeLeft, setTimeLeft] = useState<ReturnType<typeof getTimeLeft>>(
-    () => (isOfferActive() ? getTimeLeft(OFFER_END) : null)
-  )
+  const [mounted, setMounted] = useState(false)
+  const [timeLeft, setTimeLeft] =
+    useState<ReturnType<typeof getTimeLeft>>(null)
   const [spotsLeft, setSpotsLeft] = useState(50)
+
+  /* Mount guard (CRITICAL) */
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   /* Countdown */
   useEffect(() => {
-    if (!isOfferActive()) return
+    if (!mounted) return
+
+    const now = Date.now()
+    if (!isOfferActive(now)) return
+
+    setTimeLeft(getTimeLeft(OFFER_END, now))
 
     const timer = setInterval(() => {
-      setTimeLeft(getTimeLeft(OFFER_END))
+      const current = Date.now()
+      setTimeLeft(getTimeLeft(OFFER_END, current))
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [mounted])
 
   /* Soft UI scarcity */
   useEffect(() => {
@@ -51,7 +60,8 @@ export default function HighUrgencyOffer() {
     return () => clearInterval(interval)
   }, [])
 
-  if (!timeLeft || !isOfferActive()) return null
+  /* ⛔ Server & client first render must match */
+  if (!mounted || !timeLeft || !isOfferActive(Date.now())) return null
 
   return (
     <section className="relative w-full bg-white border-y-4 border-[#FF69B4] py-16 px-4 overflow-hidden">
@@ -78,8 +88,8 @@ export default function HighUrgencyOffer() {
       </motion.div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
-      <MobileOfferPoster />
-        
+        <MobileOfferPoster />
+
         <h2 className="font-bebas text-6xl md:text-8xl text-slate-900">
           CHRISTMAS SPECIAL
         </h2>
