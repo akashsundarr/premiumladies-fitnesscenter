@@ -18,7 +18,6 @@ export default function ContactSection() {
     message: string
   } | null>(null)
 
-  // ✅ Auto-close popup after 3 seconds
   useEffect(() => {
     if (!popup) return
     const timer = setTimeout(() => setPopup(null), 3000)
@@ -53,7 +52,7 @@ export default function ContactSection() {
       } else {
         throw new Error(result.error || "Script failure")
       }
-    } catch (err) {
+    } catch {
       setPopup({
         type: "error",
         message: "Something went wrong. Please try again later.",
@@ -80,6 +79,13 @@ export default function ContactSection() {
 
   return (
     <section className="py-24 px-6 bg-[radial-gradient(circle_at_50%_50%,rgba(255,105,180,0.14)_0%,#ffffff_45%)]">
+
+      {/* 🔒 SEO-only NAP (no UI impact) */}
+      <div className="sr-only">
+        <p>Premium Ladies Gym, Al Ain, Abu Dhabi, United Arab Emirates</p>
+        <p>Phone: +971XXXXXXXXX</p>
+      </div>
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -97,7 +103,6 @@ export default function ContactSection() {
           </p>
         </motion.div>
 
-        {/* Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
           {/* Form */}
           <motion.form
@@ -142,7 +147,6 @@ export default function ContactSection() {
               />
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSending}
@@ -155,14 +159,7 @@ export default function ContactSection() {
                 text-white
               `}
             >
-              {isSending ? (
-                <>
-                  <span className="h-5 w-5 rounded-full border-2 border-white/40 border-t-white animate-spin" />
-                  Sending…
-                </>
-              ) : (
-                "Send Message"
-              )}
+              {isSending ? "Sending…" : "Send Message"}
             </button>
           </motion.form>
 
@@ -192,7 +189,18 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* ✅ Auto-closing Popup */}
+      {/* 🗺️ Google Map (SEO + Maps ranking booster) */}
+      <div className="mt-16 max-w-7xl mx-auto">
+        <iframe
+          title="Premium Ladies Gym Location"
+          src="https://www.google.com/maps?q=Premium+Ladies+Gym+Al+Ain&output=embed"
+          className="w-full h-[380px] rounded-xl border border-black/20"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+
+      {/* Popup */}
       <AnimatePresence>
         {popup && (
           <motion.div
@@ -205,26 +213,12 @@ export default function ContactSection() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              transition={{ duration: 0.25 }}
               className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 text-center shadow-xl"
             >
-              <h3
-                className={`font-bebas text-3xl mb-3 ${
-                  popup.type === "success"
-                    ? "text-[#FF69B4]"
-                    : "text-red-500"
-                }`}
-              >
+              <h3 className="font-bebas text-3xl mb-3">
                 {popup.type === "success" ? "Message Sent" : "Error"}
               </h3>
-
-              <p className="text-[#333333] mb-2">
-                {popup.message}
-              </p>
-
-              <p className="text-xs text-gray-400">
-                This will close automatically
-              </p>
+              <p className="text-[#333333]">{popup.message}</p>
             </motion.div>
           </motion.div>
         )}

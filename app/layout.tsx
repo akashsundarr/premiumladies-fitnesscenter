@@ -16,26 +16,35 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: "Premium Ladies Fitness Center",
+  title: "Premium Ladies Gym | Women’s Gym in Al Ain, UAE",
   description:
-    "Welcome to Premium Fitness Ladies, where your wellness journey begins. Featuring a refined, women-only space designed for strength and confidence.",
-  generator: "v0.app",
+    "Premium Ladies Gym is a women-only fitness center in Al Ain, UAE offering personal training, group workouts, and modern gym facilities exclusively for ladies.",
+
   icons: {
-    icon: [
-      {
-        url: "/tab-logo.jpeg",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/tab-logo.jpeg",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/tab-logo.jpeg",
-        type: "image/svg+xml",
-      },
-    ],
+    icon: "/tab-logo.jpeg",
     apple: "/apple-icon.png",
+  },
+
+  openGraph: {
+    title: "Premium Ladies Gym | Women’s Gym in Al Ain, UAE",
+    description:
+      "Women-only fitness center in Al Ain offering personal training, group workouts, and modern gym facilities for ladies.",
+    url: "https://premiumladiesfitnesscenter.com",
+    siteName: "Premium Ladies Gym",
+    locale: "en_AE",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Premium Ladies Gym | Women’s Gym in Al Ain, UAE",
+    description:
+      "Women-only fitness center in Al Ain offering personal training, group workouts, and modern gym facilities for ladies.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 

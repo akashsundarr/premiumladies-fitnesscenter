@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -9,6 +9,9 @@ export default function HeroSection() {
       {/* Main content container */}
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <h1 className="sr-only">
+            Premium Ladies Gym – Women-Only Gym in Al Ain, UAE
+          </h1>
 
           {/* Left content */}
           <div className="space-y-8 animate-slide-in-left">
@@ -19,7 +22,10 @@ export default function HeroSection() {
 
             <p className="text-[#333333] text-xl font-space leading-[1.4em] max-w-lg">
               Welcome to{" "}
-              <span className="font-semibold">Premium Ladies Fitness Center</span>, Al Ain’s{" "}
+              <span className="font-semibold">
+                Premium Ladies Fitness Center
+              </span>
+              , Al Ain’s{" "}
               <span className="font-semibold text-[#FF69B4]">
                 most trusted ladies-only gym
               </span>
@@ -32,7 +38,6 @@ export default function HeroSection() {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center gap-5 pt-4">
-
               {/* Primary CTA */}
               <Link
                 href="/#membership"
@@ -74,7 +79,6 @@ export default function HeroSection() {
               >
                 Get Started
               </Link>
-
             </div>
           </div>
 
@@ -87,8 +91,10 @@ export default function HeroSection() {
             />
 
             {/* Ground fade */}
-            <div className="pointer-events-none absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[55%]
-                            bg-linear-to-t from-[#FF69B4]/30 via-[#FF69B4]/15 to-transparent blur-2xl z-10" />
+            <div
+              className="pointer-events-none absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[55%]
+                            bg-linear-to-t from-[#FF69B4]/30 via-[#FF69B4]/15 to-transparent blur-2xl z-10"
+            />
 
             {/* Decorative chevron */}
             <div className="absolute top-8 right-8 animate-bounce-slow z-30">
@@ -98,14 +104,23 @@ export default function HeroSection() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 15l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 15l-7 7-7-7"
+                />
               </svg>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  )
+  );
 }
