@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "Premium Ladies Gym is a women-only fitness center in Al Ain, UAE offering personal training, group workouts, and modern gym facilities exclusively for ladies.",
 
   icons: {
-    icon: "/tab-logo.jpeg",
+    icon: "/images/logo-mark2.png",
     apple: "/apple-icon.png",
   },
 
