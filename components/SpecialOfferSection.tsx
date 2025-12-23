@@ -1,11 +1,17 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, Flame, ArrowRight } from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowRight } from "lucide-react"
 
-/* 🔒 Stable constant (IMPORTANT) */
-const OFFER_END = new Date("2025-12-31T23:59:59")
+/* 🔒 Fixed Christmas Event Window */
+const OFFER_START = new Date("2025-12-24T00:00:00")
+const OFFER_END = new Date("2025-12-25T23:59:59")
+
+function isOfferActive() {
+  const now = Date.now()
+  return now >= OFFER_START.getTime() && now <= OFFER_END.getTime()
+}
 
 function getTimeLeft(targetDate: Date) {
   const now = Date.now()
@@ -16,26 +22,27 @@ function getTimeLeft(targetDate: Date) {
     hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
     minutes: Math.floor((distance / (1000 * 60)) % 60),
     seconds: Math.floor((distance / 1000) % 60),
-    milliseconds: Math.floor((distance % 1000) / 10),
   }
 }
 
 export default function HighUrgencyOffer() {
   const [timeLeft, setTimeLeft] = useState<ReturnType<typeof getTimeLeft>>(
-    () => getTimeLeft(OFFER_END)
+    () => (isOfferActive() ? getTimeLeft(OFFER_END) : null)
   )
   const [spotsLeft, setSpotsLeft] = useState(7)
 
   /* Countdown */
   useEffect(() => {
+    if (!isOfferActive()) return
+
     const timer = setInterval(() => {
       setTimeLeft(getTimeLeft(OFFER_END))
-    }, 50)
+    }, 1000)
 
     return () => clearInterval(timer)
-  }, []) // ✅ SAFE
+  }, [])
 
-  /* Soft scarcity */
+  /* Soft UI scarcity (never drops below 3) */
   useEffect(() => {
     const interval = setInterval(() => {
       setSpotsLeft((prev) => (prev > 3 ? prev - 1 : 3))
@@ -44,24 +51,24 @@ export default function HighUrgencyOffer() {
     return () => clearInterval(interval)
   }, [])
 
-  if (!timeLeft) return null
+  if (!timeLeft || !isOfferActive()) return null
 
   return (
     <section className="relative w-full bg-white border-y-4 border-[#FF69B4] py-16 px-4">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="font-bebas text-6xl md:text-8xl text-slate-900">
-          LAST CHANCE
+          CHRISTMAS SPECIAL
         </h2>
 
         <div className="mt-3 text-[#FF69B4] font-bold text-xl">
-          Only {spotsLeft} Slots Left This Week
+          Only {spotsLeft} Slots Available
         </div>
 
         <div className="mt-6 text-lg text-slate-700 space-y-2">
-          <p>✔ Free First Class</p>
-          <p>✔ AED 50 OFF on Membership</p>
+          <p>✔ 1-Month Membership</p>
+          <p>✔ Special Christmas Pricing</p>
           <p className="text-[#FF69B4] font-bold">
-            ✔ Valid till Friday Midnight
+            ✔ Valid only on 24 & 25 December 2025
           </p>
         </div>
 
@@ -74,7 +81,7 @@ export default function HighUrgencyOffer() {
         </div>
 
         <motion.a
-          href="https://wa.me/971501234567?text=Hi%20Premium%20Ladies%20Fitness%20Center%0AI%20want%20to%20claim%20the%20current%20special%20offer."
+          href="https://wa.me/971509511234?text=Hi%20Premium%20Ladies%20Fitness%20Center%0AI%20want%20to%20claim%20the%20Christmas%20special%20offer."
           target="_blank"
           whileHover={{ scale: 1.05 }}
           className="inline-flex items-center gap-3 bg-[#FF69B4] text-white font-black text-2xl px-12 py-5 rounded-xl"
@@ -89,7 +96,7 @@ export default function HighUrgencyOffer() {
 
 /* ---------- Helpers ---------- */
 
-const ClockUnit = ({
+function ClockUnit({
   value,
   label,
   highlight = false,
@@ -97,23 +104,27 @@ const ClockUnit = ({
   value: number
   label: string
   highlight?: boolean
-}) => (
-  <div className="flex flex-col items-center">
-    <div
-      className={`w-16 h-20 md:w-24 md:h-28 rounded-lg flex items-center justify-center border ${
-        highlight ? "bg-slate-900 text-white" : "bg-white text-slate-900"
-      }`}
-    >
-      <span className="text-4xl md:text-6xl font-black font-bebas">
-        {String(value).padStart(2, "0")}
-      </span>
+}) {
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className={`w-16 h-20 md:w-24 md:h-28 rounded-lg flex items-center justify-center border ${
+          highlight ? "bg-slate-900 text-white" : "bg-white text-slate-900"
+        }`}
+      >
+        <span className="text-4xl md:text-6xl font-black font-bebas">
+          {String(value).padStart(2, "0")}
+        </span>
+      </div>
+      <span className="text-xs text-slate-400 mt-2">{label}</span>
     </div>
-    <span className="text-xs text-slate-400 mt-2">{label}</span>
-  </div>
-)
+  )
+}
 
-const Separator = () => (
-  <div className="h-20 md:h-28 flex items-center justify-center">
-    <span className="text-3xl text-slate-300">:</span>
-  </div>
-)
+function Separator() {
+  return (
+    <div className="h-20 md:h-28 flex items-center justify-center">
+      <span className="text-3xl text-slate-300">:</span>
+    </div>
+  )
+}

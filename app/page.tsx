@@ -22,7 +22,7 @@ export default function Page() {
         <HeroSection />
       </section>
       
-      {/* <SpecialOfferSection /> */}
+      <SpecialOfferSection />
 
       <section id="mission">
         <MissionSection />
