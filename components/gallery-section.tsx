@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
@@ -7,14 +8,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const images = Array.from({ length: 56 }, (_, i) => 
-  `/gym-image${String(i + 1).padStart(2, "0")}.jpeg`
+const images = Array.from({ length: 12 }, (_, i) =>
+  `/gallery/gym-image${String(i + 1).padStart(2, "0")}.webp`
 );
+
 
 
 export default function GallerySection() {
   return (
-    <section className="relative py-10 px-6 overflow-hidden bg-white">
+    <section className="relative py-10 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -42,11 +44,15 @@ export default function GallerySection() {
         >
           {images.map((src, i) => (
             <SwiperSlide key={i}>
-              <div className="aspect-3/4 overflow-hidden rounded-xl">
-                <img
+              <div className="aspect-[3/4] overflow-hidden rounded-xl">
+                <Image
                   src={src}
                   alt=""
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  width={524}
+                  height={931}
+                  loading="lazy"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 524px"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </SwiperSlide>
