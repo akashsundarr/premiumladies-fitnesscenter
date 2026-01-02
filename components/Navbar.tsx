@@ -23,24 +23,13 @@ export default function Navbar() {
         <div className="h-20 flex items-center justify-between">
           {/* LOGO */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Logo mark */}
             <Image
-              src="/images/logo-mark.png"
-              alt=""
-              width={45}
-              height={45}
-              className="w-[40px] h-[40px] md:w-[56px] md:h-[56px] shrink-0"
-              priority
-            />
-
-            {/* Main logo */}
-            {/* <img
-              src="/images/logo.svg"
+              src="/images/logo-mark.svg"
               alt="Premium Ladies Fitness Center"
-              width={180}
-              height={45}
-              className="block"
-            /> */}
+              width={56}
+              height={56}
+              className="w-[40px] h-[40px] md:w-[56px] md:h-[56px] shrink-0"
+            />
           </div>
 
           {/* DESKTOP MENU */}
@@ -79,21 +68,21 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU (ANIMATED) */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden overflow-hidden bg-white border-t"
           >
             <motion.nav
               initial={{ y: -10 }}
               animate={{ y: 0 }}
               exit={{ y: -10 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25 }}
               className="flex flex-col px-6 py-6 gap-6"
             >
               {navItems.map((item, i) => (
@@ -103,7 +92,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.04 }}
                   className="font-bebas text-xl text-[#333333]"
                 >
                   {item.name}
@@ -116,7 +105,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.15 }}
                 className="font-bebas text-xl border border-[#FF69B4] py-3 px-6 text-[#FF69B4] rounded text-center hover:bg-[#FF69B4] hover:text-white transition"
               >
                 Join Now
