@@ -16,6 +16,11 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.premiumladiesfitnesscenter.com"),
+  alternates: {
+    canonical: "/",
+  },
+
   title: "Premium Ladies Gym | Women’s Gym in Al Ain, UAE",
   description:
     "Premium Ladies Gym is a women-only fitness center in Al Ain, UAE offering personal training, group workouts, and modern gym facilities exclusively for ladies.",
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
     title: "Premium Ladies Gym | Women’s Gym in Al Ain, UAE",
     description:
       "Women-only fitness center in Al Ain offering personal training, group workouts, and modern gym facilities for ladies.",
-    url: "https://premiumladiesfitnesscenter.com",
+    url: "https://www.premiumladiesfitnesscenter.com",
     siteName: "Premium Ladies Gym",
     locale: "en_AE",
     type: "website",
@@ -47,6 +52,7 @@ export const metadata: Metadata = {
     follow: true,
   },
 }
+
 
 export default function RootLayout({
   children,

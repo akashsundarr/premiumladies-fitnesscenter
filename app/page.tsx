@@ -1,14 +1,15 @@
-import HeroSection from "@/components/hero-section"
-import MissionSection from "@/components/mission-section"
-import PricingSection from "@/components/pricing-section"
-import CTASection from "@/components/cta-section"
-import TrainersSection from "@/components/trainers-section"
-import FAQSection from "@/components/faq-section"
-import ContactSection from "@/components/contact-section"
-import Footer from "@/components/footer"
-import AppNavbar from "@/components/Navbar"
-import SpecialOfferSection from "@/components/SpecialOfferSection"
-import GalleryClient from "@/components/GalleryClient"
+import HeroSection from "@/components/hero-section";
+import MissionSection from "@/components/mission-section";
+import PricingSection from "@/components/pricing-section";
+import CTASection from "@/components/cta-section";
+import TrainersSection from "@/components/trainers-section";
+import FAQSection from "@/components/faq-section";
+import ContactSection from "@/components/contact-section";
+import Footer from "@/components/footer";
+import AppNavbar from "@/components/Navbar";
+import SpecialOfferSection from "@/components/SpecialOfferSection";
+import GalleryClient from "@/components/GalleryClient";
+
 
 export default function Page() {
   return (
@@ -51,5 +52,5 @@ export default function Page() {
 
       <Footer />
     </>
-  )
+  );
 }

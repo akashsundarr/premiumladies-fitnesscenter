@@ -1,16 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { name: "Home", href: "#" },
-  { name: "Membership", href: "#membership" },
-  { name: "Facilities", href: "#gallery" },
-  { name: "Trainers", href: "#trainers" },
-  { name: "Contact", href: "#contact" },
-  { name: "FAQ", href: "#faq" },
+  { name: "Home", href: "/" },
+  { name: "Membership", href: "/#membership" },
+  { name: "Facilities", href: "/#gallery" },
+  { name: "Agreement", href: "/agreement" },
+  { name: "Trainers", href: "/#trainers" },
+  { name: "Contact", href: "/#contact" },
+  { name: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar() {
@@ -23,25 +25,28 @@ export default function Navbar() {
         <div className="h-20 flex items-center justify-between">
           {/* LOGO */}
           <div className="flex items-center gap-2 shrink-0">
-            <Image
-              src="/images/logo-mark.svg"
-              alt="Premium Ladies Fitness Center"
-              width={56}
-              height={56}
-              className="w-[40px] h-[40px] md:w-[56px] md:h-[56px] shrink-0"
-            />
+            <Link href="/">
+              <Image
+                src="/images/logo-mark.svg"
+                alt="Premium Ladies Fitness Center"
+                width={56}
+                height={56}
+                className="w-[40px] h-[40px] md:w-[56px] md:h-[56px]"
+                priority
+              />
+            </Link>
           </div>
 
           {/* DESKTOP MENU */}
           <nav className="hidden md:flex items-center gap-10">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className="font-bebas text-lg tracking-wide text-[#333333] hover:text-[#FF69B4] transition"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -86,17 +91,20 @@ export default function Navbar() {
               className="flex flex-col px-6 py-6 gap-6"
             >
               {navItems.map((item, i) => (
-                <motion.a
+                <motion.div
                   key={item.name}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04 }}
-                  className="font-bebas text-xl text-[#333333]"
                 >
-                  {item.name}
-                </motion.a>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="font-bebas text-xl text-[#333333]"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
 
               <motion.a

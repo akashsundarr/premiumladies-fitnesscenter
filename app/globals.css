@@ -248,3 +248,7 @@
     animation: bounceSlow 3s ease-in-out infinite;
   }
 }
+
+section {
+  scroll-margin-top: 96px;
+}
