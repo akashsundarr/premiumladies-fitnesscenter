@@ -9,7 +9,6 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "Membership", href: "/#membership" },
   { name: "Facilities", href: "/#gallery" },
-  { name: "Agreement", href: "/agreement" },
   { name: "Trainers", href: "/#trainers" },
   { name: "Contact", href: "/#contact" },
   { name: "FAQ", href: "/#faq" },
